@@ -1,0 +1,85 @@
+Ceci explique comment j'ai raisonné pour résoudre le problème : 
+J'aurais pu réduire le nombre de lignes de code en créant une fonction 
+__func__(cash_back, valeur) : 
+  if cash_back%valeur ...etc 
+  elif ...etc 
+  else ... etc
+ 
+mais comme ça c'est plus facile à comprendre mon raisonnement. 
+
+______________________________________________________
+j'ai un cash_back à rendre 
+
+rendre la monnaie de manière optimale possible : exemple si cash_back = 25 euros -> je rends 2 fois 10 euros et 1 fois 5 euros 
+
+si cash_back = 1 --> return None/Erreur/Print
+
+le cash_back est sous forme de dictionnaire {
+	'two': n, 
+	'five'm:,
+	'ten':s
+} , n,m,s € N
+
+algo : 
+	soit reste(n)  le reste de la division euclidienne de cash_back/n <=> cash_back % n, n € {2,5,10} 
+	
+	#on gère le cas 2 euros définitivement 
+	#car 8 euros est le cas maximal où on doit rendre uniquement des 2 euros (4 fois 2 euros) 
+	#parceque on a pas de piéces de 1 euro 
+	#la solution 5 + 2 + 1 est donc écartée 
+	
+	si cash_back %2 == 0 et cash_back <= 8 :
+		return {
+		'two': cash_back/2 fois 2 euros,
+		'five':0,
+		'ten': 0 
+	} 
+	#on gère le cas 5 euros définitivement 
+	#car 5 euros est le cas maximal où on doit rendre uniquement des 5 euros (1 fois 5 euros) 
+	
+	si cash_back = 5 :
+		return {
+		'two': 0,
+		'five':1,
+		'ten': 0 
+	} 
+	
+	#le cas 10 euros 
+	
+	si cash_back % 10 == 0 : 
+		return {
+		'two': 0,
+		'five':0,
+		'ten': cash_back/10 fois 10 euros 
+	} 
+	# cas plus complexe
+	si non si : 
+		si reste(5) == 0 :
+			return {
+			'two': 0,
+			'five':reste(5)/5 fois 5 euros ,
+			'ten': partie entière de cash_back/10 
+			} 
+			
+		si non si reste(2) == 0:
+			return {
+			'two': reste(2)/2 fois 2 euros,
+			'five':0,
+			'ten': partie entière de cash_back/10 
+			} 
+		si non si (reste(10) % 5 ) % 2 == 0 : 
+			return {
+			'two': (reste(10) % 5 ) % 5 / 2 fois 2 euros ,
+			'five':partie entière de cash_back % 10 / 5 fois 5 euros ,
+			'ten': partie entière de cash_back/10 fois 10 euros 
+			}
+		si non : 
+			return None
+	
+	
+	
+	
+	
+	
+		
+			
